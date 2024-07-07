@@ -1,30 +1,27 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../db';
-import User from './User';
 
-class Journal extends Model {}
+class User extends Model {}
 
-Journal.init({
+User.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  user_id: {
-    type: DataTypes.INTEGER,
+  username: {
+    type: DataTypes.STRING,
     allowNull: false,
-    references: {
-      model: User,
-      key: 'id'
-    }
+    unique: true
   },
-  title: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false
   },
-  content: {
-    type: DataTypes.TEXT,
-    allowNull: false
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
   },
   created_at: {
     type: DataTypes.DATE,
@@ -32,9 +29,9 @@ Journal.init({
   }
 }, {
   sequelize,
-  modelName: 'Journal',
-  tableName: 'journals',
+  modelName: 'User',
+  tableName: 'users',
   timestamps: false
 });
 
-export default Journal;
+export default User;

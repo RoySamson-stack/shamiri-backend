@@ -1,6 +1,8 @@
 import {Router} from 'express'
 import Journal from './models/Journal'
 import { junit } from 'node:test/reporters';
+import connection from "./db"
+
 
 
 const router = Router()

@@ -1,22 +1,27 @@
-import { Sequelize } from 'sequelize';
+import express from 'express';
+import sequelize from '../db';
+import User from './User';
 import Journal from './Journal';
 
-// change the database username and passwor to match the ones for the postgres database
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'postgres',
-  logging: false,
-});
+const app = express();
+app.use(express.json());
 
-// Import and initialize all models
-const models = {
-  Journal: Journal.initModel(sequelize),
-};
-
-// Sync all models
 sequelize.sync().then(() => {
-  console.log('Database connected and models synchronized');
+  console.log('Database synced');
+}).catch((err) => {
+  console.error('Error syncing database:', err);
 });
 
-export { sequelize };
-export default models;
+app.post('/users', async (req, res) => {
+  const { username, password, email } = req.body;
+  try {
+    const user = await User.create({ username, password, email });
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
