@@ -1,3 +1,4 @@
+// routes/signup.ts
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
@@ -8,13 +9,13 @@ router.post('/signup', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   try {
-    // Optional: Hash the password before saving it
+    // Hashing password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
       username,
       email,
-      password: hashedPassword // Store hashed password in the database
+      password: hashedPassword
     });
 
     res.status(201).json(newUser);
