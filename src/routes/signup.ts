@@ -1,11 +1,14 @@
-// routes/signup.ts
 import express, { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../models/User';
 
-const router = express.Router();
+import cors from 'cors'
 
-router.post('/signup', async (req: Request, res: Response) => {
+// const router = express.Router();
+const app = express();
+app.use(cors())
+
+app.post('/signup', async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   try {
@@ -25,4 +28,4 @@ router.post('/signup', async (req: Request, res: Response) => {
   }
 });
 
-export default router;
+export default app;
