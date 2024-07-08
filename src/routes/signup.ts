@@ -1,20 +1,14 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import bcrypt from 'bcryptjs';
-import User from '../models/User';
+import User from '../models/User';  
 
-import cors from 'cors'
+const router = express.Router();
 
-// const router = express.Router();
-const app = express();
-app.use(cors())
-
-app.post('/signup', async (req: Request, res: Response) => {
+router.post('/', async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    // Hashing password
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = await User.create({
       username,
       email,
@@ -28,4 +22,4 @@ app.post('/signup', async (req: Request, res: Response) => {
   }
 });
 
-export default app;
+export default router;

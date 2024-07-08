@@ -2,11 +2,11 @@
   "name": "shamiri-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/models/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node dist/server.js",
-    "dev": "nodemon src/server.ts"
+    "start": "tsc && node dist/app.ts",
+    "dev": "nodemon src/app.ts"
   },
   "keywords": [],
   "author": "",
