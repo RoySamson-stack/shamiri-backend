@@ -1,7 +1,19 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../db';
+import bcrypt from 'bcryptjs';
 
-class User extends Model {}
+class User extends Model {
+  public id!: number;
+  public username!:string;
+  public password!: string;
+  public email!: string;
+
+
+  public async comparePassword(candidatePassword: string): Promise<boolean> {
+    return bcrypt.compare(candidatePassword, this.password);
+  }
+}
+
 
 User.init({
   id: {

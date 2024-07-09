@@ -2,7 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../db';
 import User from './User';
 
-class Journal extends Model {}
+class Journal extends Model {
+public id!: number;
+public user_id!: number;
+public title!: string;
+public content!: string;
+
+
+}
 
 Journal.init({
   id: {
