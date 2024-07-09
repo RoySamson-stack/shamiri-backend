@@ -1,10 +1,13 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import User from '../models/User';  
+import User from '../models/User'; 
 
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+  console.log('Received signup request:', req.body)
+
+  console
   const { username, email, password } = req.body;
 
   try {

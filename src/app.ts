@@ -4,19 +4,24 @@ import cors from 'cors';
 import signupRouter from './routes/signup';
 import sequelize from './db'; 
 
+const app = express();
+const PORT = process.env.PORT || 5000; 
 
-const app = express()
-const PORT = 5000
-
-
-app.use(cors());
-
+app.use(cors({
+  origin: '*'
+}));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get('/api/test', (req, res) => {
+  res.send('Test request');
+});
 
-app.use('/signup', signupRouter);
-
+app.use('/signup',(req, res, next)=>{
+  console.log('Rceived request at /signup');
+  next()
+}, signupRouter);
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
@@ -25,4 +30,5 @@ sequelize.sync().then(() => {
 }).catch((error) => {
   console.error('Unable to connect to the database:', error);
 });
-export default app
+
+export default app;
